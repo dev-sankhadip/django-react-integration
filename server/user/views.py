@@ -1,3 +1,18 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from knox.models import AuthToken
 
-# Create your views here.
+from .serializers import RegisterSerializer, UserSerializer
+
+
+class RegistrationView(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user=serializer.save()
+            return Response({
+                "user":UserSerializer(user, context=self.get_serializer_context()).data,
+                "token":AuthToken.objects.create(user)[1]
+            })
