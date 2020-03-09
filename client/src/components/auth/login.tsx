@@ -1,7 +1,9 @@
 import React, { useState, Fragment } from 'react';
-import { Grid, Segment, Form, Header, Icon, Button, FormProps } from 'semantic-ui-react';
+import { Grid, Segment, Form, Button, FormProps } from 'semantic-ui-react';
 
 import Axios from '../../axios/axios';
+import { HeaderComponent } from './AuthHeader';
+
 
 export const Login = (props: any) => {
 
@@ -27,7 +29,7 @@ export const Login = (props: any) => {
 
     const submit: submitFunc = async (e: React.FormEvent<HTMLFormElement>, data: FormProps) => {
         try {
-            const res = Axios.post('/api/auth/signup', { email, password });
+            const res = await Axios.post('/api/auth/signup', { email, password });
             console.log(res);
         }
         catch (err) {
@@ -43,10 +45,7 @@ export const Login = (props: any) => {
                     <Grid.Column></Grid.Column>
                     <Grid.Column>
                         <Segment raised>
-                            <Header as="h2" icon textAlign="center">
-                                <Icon name="user" circular />
-                                <Header.Content>Login</Header.Content>
-                            </Header>
+                            <HeaderComponent name="Login" />
                             <Form onSubmit={submit}>
                                 <Form.Field>
                                     <label>Email</label>
