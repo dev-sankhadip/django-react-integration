@@ -96,10 +96,6 @@ REST_FRAMEWORK={
     ('knox.auth.TokenAuthentication',)
 }
 
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'server.utils.my_jwt_response_handler'
-}
-
 
 # CORS allow
 CORS_ORIGIN_ALLOW_ALL = False
