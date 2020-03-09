@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'user.apps.UserConfig',
+    'user',
     'knox'
 ]
 
@@ -104,7 +104,7 @@ JWT_AUTH = {
 # CORS allow
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:4200',
+    'http://localhost:3000',
 )
 
 # Password validation
