@@ -13,8 +13,14 @@ export const Signup = (props: any) => {
         (e: React.FormEvent<HTMLFormElement>): void
     }
 
+    interface ErrorMessage {
+        msg: string;
+        color?: any;
+    }
+
     const [force, setForce] = useState(0);
     const [perror, setPerror] = useState<boolean>(false);
+    const [err, setErr] = useState<ErrorMessage>({ msg: "", color: "" });
 
     const submit: submitFunc = async (e: React.FormEvent<HTMLFormElement>) => {
         console.log(SignupForm)
@@ -23,11 +29,13 @@ export const Signup = (props: any) => {
         try {
             const res = await Axios.post('/api/auth/signup', { username, email, password });
             SignupForm.emptyForm();
-            setForce(force=>force+1)
+            setForce(force => force + 1)
             console.log(res);
+            setErr({ msg: "Successfully Signedup", color: "green" })
         }
         catch (err) {
             console.log(err);
+            setErr({ msg: "Signup Failed, Try again", color: "red" })
         }
     }
 
@@ -38,6 +46,7 @@ export const Signup = (props: any) => {
                     <Grid.Column></Grid.Column>
                     <Grid.Column>
                         <Segment raised>
+                            {err.msg ? <Message color={err.color}>{err.msg}</Message> : null}
                             <HeaderComponent name="Signup" />
                             <Form onSubmit={submit}>
                                 <Form.Field>
@@ -115,7 +124,7 @@ export const Signup = (props: any) => {
                                 {SignupForm.touchedField[3] === false ? <Message color="red">Confirm Password is required</Message> : null}
                                 {perror ? <Message color="red">Password didn't match</Message> : null}
                                 <Button disabled={SignupForm.isFormValid()}>Signup</Button>
-                                <p onClick={()=>{ props.history.push('') }} style={{ float:'right', fontWeight:'bold' }}>Click to Login</p>
+                                <p onClick={() => { props.history.push('') }} style={{ float: 'right', fontWeight: 'bold' }}>Click to Login</p>
                             </Form>
                         </Segment>
                     </Grid.Column>
