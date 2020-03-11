@@ -48,6 +48,14 @@ export class Validator {
         return this.fields['password'] === e.target.value ? false : true
     }
 
+    public emptyForm():void
+    {
+        for(let key in this.fields)
+        {
+            this.fields[key]="";
+        }
+    }
+
     public isFormValid(): boolean {
         return (this.touchedField.includes(false)===true || this.touchedField.includes(null)===true ? true : false)
     }

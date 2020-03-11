@@ -22,6 +22,8 @@ export const Signup = (props: any) => {
         e.preventDefault();
         try {
             const res = await Axios.post('/api/auth/signup', { username, email, password });
+            SignupForm.emptyForm();
+            setForce(force=>force+1)
             console.log(res);
         }
         catch (err) {
