@@ -19,7 +19,7 @@ export const Login = (props: any) => {
     const submit: submitFunc = async (e: React.FormEvent<HTMLFormElement>, data: FormProps) => {
         const { email, password } = LoginForm.fields;
         try {
-            const res = await Axios.post('/api/auth/signup', { email, password });
+            const res = await Axios.post('/api/auth/login', { email, password });
             console.log(res);
         }
         catch (err) {
