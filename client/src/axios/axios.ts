@@ -8,6 +8,9 @@ const Axios = axios.create({
 
 // Create axios request interceptor
 Axios.interceptors.request.use((config) => {
+    if (config.url !== '/api/auth/login' && config.url !== '/api/auth/signup') {
+        config.headers = { ...config.headers, 'Authorization': "Token " + window.localStorage.getItem("token") }
+    }
     return config;
 }, (err) => {
     console.log(err);
