@@ -1,17 +1,40 @@
-import React from 'react';
-import { Switch, BrowserRouter, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Switch, BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Login } from './components/auth/login';
 import { Signup } from './components/auth/signup';
-
+import { Dashboard } from './components/dashboard/dashboard';
+import { CheckAuth } from './auth/CheckAuth';
 
 
 function App() {
+
+  interface IUserStatus {
+    status: boolean | null;
+  }
+
+  const [userStatus, setUserStatus] = useState<IUserStatus>({ status: null })
+  useEffect(() => {
+    CheckAuth()
+      .then((res) => {
+        setUserStatus({ status: true })
+      })
+      .catch((err) => {
+        setUserStatus({ status: false })
+      })
+  }, [])
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <Route exact path="/" render={props => (
+            userStatus.status === true ? <Redirect to="/dashboard" /> : (userStatus.status === false ? <Login {...props} /> : null)
+          )} />
+          <Route path="/signup" render={props => (
+            userStatus.status === true ? <Redirect to="/dashboard" /> : (userStatus.status === false ? <Signup {...props} /> : null)
+          )} />
+          <Route path="/dashboard" render={props => (
+            userStatus.status === true ? <Dashboard {...props} /> : (userStatus.status === false ? <Redirect to="/" /> : null)
+          )} />
         </Switch>
       </BrowserRouter>
     </div>
