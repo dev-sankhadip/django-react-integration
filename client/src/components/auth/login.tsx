@@ -21,6 +21,7 @@ export const Login = (props: any) => {
         try {
             const res = await Axios.post('/api/auth/login', { username: email, password });
             window.localStorage.setItem("token", res.data.token);
+            window.location.reload()
         }
         catch (err) {
             console.log(err);
@@ -47,6 +48,7 @@ export const Login = (props: any) => {
                                         onChange={(e) => {
                                             setForce(force => force + 1)
                                             LoginForm.requiredOnChnage(e)
+                                            LoginForm.validateEmail(e)
                                         }}
                                         onBlur={(e) => {
                                             setForce(force => force + 1)

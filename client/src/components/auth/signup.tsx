@@ -77,6 +77,7 @@ export const Signup = (props: any) => {
                                         onChange={(e) => {
                                             setForce(force => force + 1)
                                             SignupForm.requiredOnChnage(e);
+                                            SignupForm.validateEmail(e);
                                         }}
                                         onBlur={(e) => {
                                             setForce(force => force + 1);
@@ -85,6 +86,8 @@ export const Signup = (props: any) => {
                                     />
                                 </Form.Field>
                                 {SignupForm.touchedField[1] === false ? <Message color="red">Email is required</Message> : null}
+                                { console.log(SignupForm.ValidationError[1]) }
+                                {SignupForm.ValidationError[1] === false ? <Message color="red">Invalid Email</Message> : null}
                                 <Form.Field>
                                     <label>Password</label>
                                     <input

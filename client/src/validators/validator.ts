@@ -11,6 +11,7 @@ export class Validator {
 
     public fields: IField;
     public touchedField: any = [];
+    public ValidationError: any = [];
 
     constructor(fields: any) {
         this.fields = fields;
@@ -52,6 +53,13 @@ export class Validator {
         for (let key in this.fields) {
             this.fields[key] = "";
         }
+    }
+
+    public validateEmail(e: any): void {
+        if (/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(e.target.value)) {
+            this.ValidationError[e.target.dataset.index] = true;
+        }
+        this.ValidationError[e.target.dataset.index] = false;
     }
 
     public isFormValid(): boolean {
