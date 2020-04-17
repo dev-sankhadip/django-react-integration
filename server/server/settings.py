@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'user',
-    'knox'
+    'knox',
+    'comment',
+    'todo'
 ]
 
 MIDDLEWARE = [

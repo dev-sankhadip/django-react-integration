@@ -4,6 +4,8 @@ import { Login } from './components/auth/login';
 import { Signup } from './components/auth/signup';
 import { Dashboard } from './components/dashboard/dashboard';
 import { CheckAuth } from './auth/CheckAuth';
+import { AddTodo } from './components/pages/addTodo';
+import { DeletedTodo } from './components/pages/deletedTodo';
 
 
 function App() {
@@ -34,6 +36,12 @@ function App() {
           )} />
           <Route path="/dashboard" render={props => (
             userStatus.status === true ? <Dashboard {...props} /> : (userStatus.status === false ? <Redirect to="/" /> : null)
+          )} />
+          <Route path="/new" render={props => (
+            userStatus.status === true ? <AddTodo {...props} /> : (userStatus.status === false) ? <Redirect to="/" /> : null
+          )} />
+          <Route path="/deleted" render={props => (
+            userStatus.status === true ? <DeletedTodo {...props} /> : (userStatus.status === false) ? <Redirect to="/" /> : null
           )} />
         </Switch>
       </BrowserRouter>
